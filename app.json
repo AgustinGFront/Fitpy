@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "FitpyApp",
+    "slug": "FitpyApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "fitpyapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.fitpy.fitpyapp",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash2.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#00FF8C"
+        }
+      ],
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0109f691-638b-46e2-9284-a3e3204d5b86"
+      },
+      "google": {
+        "androidClientId": "122400246620-hdhsms3kr9bnb7g2ag0gdofa8h6h1i6h.apps.googleusercontent.com",
+        "webClientId": "12  2400246620-fle78671addc2rcpteb7n5thrpt8gi6a.apps.googleusercontent.com"
+      }
+    }
+  }
+}
