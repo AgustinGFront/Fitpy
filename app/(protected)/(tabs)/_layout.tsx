@@ -42,7 +42,7 @@ export default function TabsLayout() {
         options={{
           title: "Nutrición",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="restaurant-outline" color={color} size={28} />
+            <Ionicons name="nutrition-outline" color={color} size={28} />
           ),
         }}
       />

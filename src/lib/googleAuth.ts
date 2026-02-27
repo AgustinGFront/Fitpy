@@ -10,17 +10,23 @@ export function useGoogleAuth() {
   const [request, , promptAsync] = Google.useAuthRequest({
     webClientId: Constants.expoConfig?.extra?.google?.webClientId,
     androidClientId: Constants.expoConfig?.extra?.google?.androidClientId,
+    iosClientId: Constants.expoConfig?.extra?.google?.iosClientId,
   });
 
   const signInWithGoogle = async () => {
-    const result = await promptAsync();
+    try {
+      const result = await promptAsync();
 
-    if (result?.type !== "success") return;
+      if (result?.type !== "success") return;
 
-    const { id_token } = result.params;
+      const { id_token } = result.params;
 
-    const credential = GoogleAuthProvider.credential(id_token);
-    await signInWithCredential(auth, credential);
+      const credential = GoogleAuthProvider.credential(id_token);
+      await signInWithCredential(auth, credential);
+      // ✅ AuthGate se encarga del redirect
+    } catch (error) {
+      console.log("Google auth error:", error);
+    }
   };
 
   return {

@@ -4,9 +4,14 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Image, View } from "react-native";
 
+
 import { useColorScheme } from "../hooks/use-color-scheme";
 import { AuthProvider, useAuth } from "../src/context/AuthContext";
+import { NutritionProvider } from "../src/context/NutritionContext";
 
+/* ===========================
+   AUTH GATE
+=========================== */
 function AuthGate() {
   const { user, loading } = useAuth();
   const segments = useSegments();
@@ -14,11 +19,11 @@ function AuthGate() {
 
   const [splashDone, setSplashDone] = useState(false);
 
-  // ⏱ splash mínimo (ajustá el tiempo si querés)
+  // ⏱ Splash mínimo
   useEffect(() => {
     const timer = setTimeout(() => {
       setSplashDone(true);
-    }, 2000); // 1.8 segundos
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -38,25 +43,22 @@ function AuthGate() {
     }
   }, [user, loading, splashDone, router, segments]);
 
-  // 🎨 SPLASH FULLSCREEN
+  // 🎨 Splash screen
   if (loading || !splashDone) {
     return (
       <View
         style={{
           flex: 1,
-          backgroundColor: "#000000",
+          backgroundColor: "#000",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <StatusBar style="light" backgroundColor="#000000" />
+        <StatusBar style="light" backgroundColor="#000" />
 
         <Image
           source={require("../assets/images/icon.png")}
-          style={{
-            width: 160,
-            height: 160,
-          }}
+          style={{ width: 160, height: 160 }}
           resizeMode="contain"
         />
       </View>
@@ -66,14 +68,21 @@ function AuthGate() {
   return <Stack screenOptions={{ headerShown: false }} />;
 }
 
+/* ===========================
+   ROOT LAYOUT
+=========================== */
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <AuthProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <AuthGate />
-      </ThemeProvider>
+      <NutritionProvider>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <AuthGate />
+        </ThemeProvider>
+      </NutritionProvider>
     </AuthProvider>
   );
 }
